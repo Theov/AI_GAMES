@@ -1,24 +1,20 @@
 #include "virusgenius.h"
 
+const QString VirusGenius::imageBlackPath = ":/VirusGenius/black.png";
+const QString VirusGenius::imageWhitePath = ":/VirusGenius/white.png";
+const QString VirusGenius::imageEmptyPath = ":/VirusGenius/empty.png";
+
 VirusGenius::VirusGenius(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
-
-	virusController = new controller();
-
-	for (int i = 0; i < 7; i++)
-	{
-		for (int j = 0; j < 7; j++)
-		{
-			changeCaseImage(i, j, virusController->env()->cases().at(i).at(j)->actualSymbole());
-		}
-	}
+	initializeController();
+	synchronizeGUI();
 }
 
 VirusGenius::~VirusGenius()
 {
-
+	delete virusController;
 }
 
 void VirusGenius::changeCaseImage(int x, int y, QString Image)
@@ -27,17 +23,11 @@ void VirusGenius::changeCaseImage(int x, int y, QString Image)
 	QString pathOfImageToLoad;
 
 	if (Image == "black")
-	{
-		pathOfImageToLoad = ":/VirusGenius/black.png";
-	}
+		pathOfImageToLoad = imageBlackPath;
 	else if (Image == "white")
-	{
-		pathOfImageToLoad = ":/VirusGenius/white.png";
-	}
+		pathOfImageToLoad = imageWhitePath;
 	else
-	{
-		pathOfImageToLoad = ":/VirusGenius/empty.png";
-	}
+		pathOfImageToLoad = imageEmptyPath;
 
 	img.load(pathOfImageToLoad);
 
@@ -45,4 +35,43 @@ void VirusGenius::changeCaseImage(int x, int y, QString Image)
 	lab->setPixmap(QPixmap::fromImage(img));
 	lab->setFixedWidth(img.width());
 	lab->setFixedHeight(img.height());
+}
+
+void VirusGenius::initializeController()
+{
+	if (!virusController)
+	{
+		delete virusController;
+		virusController = new controller();
+	}
+	else
+	{
+		virusController = new controller();
+	}
+}
+
+void VirusGenius::synchronizeGUI()
+{
+	actualizeBoard();
+}
+
+void VirusGenius::actualizeBoard()
+{
+	for (int i = 0; i < BOARD_DIM; i++)
+	{
+		for (int j = 0; j < BOARD_DIM; j++)
+		{
+			changeCaseImage(i, j, virusController->env()->cases().at(i).at(j)->actualSymbole());
+		}
+	}
+}
+
+void VirusGenius::labelClicked()
+{
+	if (virusController->env()->cases().at(0).at(1)->actualSymbole() == "white")
+		virusController->env()->cases().at(0).at(1)->fill("black");
+	else
+		virusController->env()->cases().at(0).at(1)->fill("white");
+	
+	synchronizeGUI();
 }
