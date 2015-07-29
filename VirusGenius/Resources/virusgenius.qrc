@@ -1,4 +1,7 @@
 <RCC>
     <qresource prefix="VirusGenius">
+    	<file>white.png</file>
+    	<file>black.png</file>
+    	<file>empty.png</file>
     </qresource>
 </RCC>

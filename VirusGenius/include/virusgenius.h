@@ -4,6 +4,8 @@
 #include <QtWidgets/QMainWindow>
 #include "ui_virusgenius.h"
 
+#include "controller.h"
+
 class VirusGenius : public QMainWindow
 {
 	Q_OBJECT
@@ -13,7 +15,11 @@ public:
 	~VirusGenius();
 
 private:
+	void changeCaseImage(int x, int y, QString Image);
+
+private:
 	Ui::VirusGeniusClass ui;
+	controller* virusController;
 };
 
 #endif // VIRUSGENIUS_H

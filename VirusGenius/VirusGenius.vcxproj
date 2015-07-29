@@ -37,7 +37,10 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="src\controller.cpp" />
+    <ClCompile Include="src\environement.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\slot.cpp" />
     <ClCompile Include="src\virusgenius.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -102,6 +105,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_virusgenius.h" />
+    <ClInclude Include="include\controller.h" />
+    <ClInclude Include="include\environement.h" />
+    <ClInclude Include="include\slot.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{61EF1889-BFF8-4EBA-987D-E5954FC0CEFF}</ProjectGuid>
